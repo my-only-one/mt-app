@@ -36,7 +36,7 @@
           <h3 class="title">{{item.name}}</h3>
           <!--具体的商品列表-->
           <ul>
-            <li v-for="(food, index) in item.spus" :key="index" class="food-item">
+            <li v-for="(food, index) in item.spus" :key="index" class="food-item" @click="showDetail(food)">
               <div class="icon" :style="head_bg(food.picture)"></div>
               <div class="content">
                 <h3 class="name">{{food.name}}</h3>
@@ -61,16 +61,18 @@
     </div>
     <!--购物车-->
     <app-shopcart :poiInfo="poiInfo" :selectFoods="selectFoods"></app-shopcart>
-
+    <!--商品详情-->
+    <app-product-detail :detailFoodVal="detailFood" ref="foodView"></app-product-detail>
   </div>
 </template>
 
 <script>
 import BScroll from 'better-scroll'
-import Shopcart from '../shopcart/Shopcart'
-import Cartcontrol from '../cartcontrol/Cartcontrol'
+import shopCart from '../shopCart/shopCart'
+import cartControl from '../cartControl/cartControl'
+import productDetail from '../productDetail/productDetail'
 export default {
-  name: 'Goods',
+  name: 'goods',
   data () {
     return {
       container: {},
@@ -79,7 +81,8 @@ export default {
       listHeight: [],
       menuScroll: {},
       foodScroll: {},
-      scrollY: 0
+      scrollY: 0,
+      detailFood: {}
     }
   },
   created () {
@@ -151,6 +154,10 @@ export default {
         }
       })
       return count
+    },
+    showDetail (food) {
+      this.detailFood = food
+      this.$refs.foodView.showView()
     }
   },
   computed: {
@@ -179,8 +186,9 @@ export default {
     }
   },
   components: {
-    'app-shopcart': Shopcart,
-    'app-cart-control': Cartcontrol
+    'app-shopcart': shopCart,
+    'app-cart-control': cartControl,
+    'app-product-detail': productDetail
   }
 }
 </script>

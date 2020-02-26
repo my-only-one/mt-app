@@ -5,9 +5,9 @@ import App from './App'
 // import router from './router'
 import VueRouter from 'vue-router'
 // import Header from '@/components/header/Header'
-import Ratings from '@/components/ratings/Ratings'
-import Seller from '@/components/seller/Seller'
-import Goods from './components/goods/Goods'
+import ratings from '@/components/ratings/ratings'
+import seller from '@/components/seller/seller'
+import goods from './components/goods/goods'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -15,9 +15,9 @@ Vue.use(VueRouter)
 // 创建routes
 const routes = [
   {path: '/', redirect: '/goods'},
-  {path: '/goods', component: Goods},
-  {path: '/ratings', component: Ratings},
-  {path: '/seller', component: Seller}
+  {path: '/goods', component: goods},
+  {path: '/ratings', component: ratings},
+  {path: '/seller', component: seller}
 ]
 
 // 实例router

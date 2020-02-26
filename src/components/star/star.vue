@@ -13,7 +13,7 @@ const CLS_ON = 'on'
 const CLS_HALF = 'half'
 const CLS_OFF = 'off'
 export default {
-  name: 'Star',
+  name: 'star',
   props: {
     score: {
       type: Number

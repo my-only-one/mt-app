@@ -56,9 +56,9 @@
 
 <script>
 import BScroll from 'better-scroll'
-import Cartcontrol from '../cartcontrol/Cartcontrol'
+import cartControl from '../cartControl/cartControl'
 export default {
-  name: 'Shopcart',
+  name: 'shopCart',
   data () {
     return {
       isShow: true
@@ -139,7 +139,7 @@ export default {
     }
   },
   components: {
-    'app-cart-control': Cartcontrol
+    'app-cart-control': cartControl
   }
 }
 </script>

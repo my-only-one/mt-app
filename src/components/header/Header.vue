@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import Star from '../star/Star'
+import Star from '../star/star'
 export default {
   name: 'Header',
   props: ['poiInfo'],
