@@ -1,6 +1,6 @@
 <template>
   <transition name="food-detail">
-    <div class="food" v-show="showDetail">
+    <div class="food" ref="foodView" v-show="showDetail">
       <div class="food-wrapper">
         <div class="food-content">
           <div class="img-wrapper">
@@ -24,6 +24,46 @@
 
           </div>
         </div>
+        <app-split></app-split>
+        <!--外卖评价-->
+        <div class="rating-wrapper">
+          <!-- 评价头部 -->
+          <div class="rating-title">
+            <div class="like-ratio" v-if="detailFoodVal.rating">
+              <span class="title">{{detailFoodVal.rating.title}}</span>
+              <span class="retio">
+                (
+                  {{detailFoodVal.rating.like_ratio_desc}}
+                  <i>{{detailFoodVal.rating.like_ratio}}</i>
+                )
+              </span>
+            </div>
+            <div class="snd-title" v-if="detailFoodVal.rating">
+              <span class="text">{{detailFoodVal.rating.snd_title}}</span>
+              <span class="icon icon-keyboard_arrow_right"></span>
+            </div>
+          </div>
+          <!--评价内容-->
+          <ul class="rating-content" v-if="detailFoodVal.rating"> <!--必须使用v-if,Vue里面不能超过两级-->
+            <li v-for="(item, index) in detailFoodVal.rating.comment_list" :key="index" class="comment-item">
+              <div class="comment-header">
+                <img :src="item.user_icon" v-if="item.user_icon" />
+                <img src="./img/anonymity.png" v-if="!item.user_icon"  />
+              </div>
+              <div class="comment-main">
+                <div class="user">
+                  {{item.user_name}}
+                </div>
+                <div class="time">
+                  {{item.comment_time}}
+                </div>
+                <div class="content">
+                  {{item.comment_content}}
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </transition>
@@ -32,7 +72,9 @@
 
 <script>
 import Vue from 'vue'
+import BScroll from 'better-scroll'
 import cartControl from '../cartControl/cartControl'
+import appSplit from '../appSplit/appSplit'
 export default {
   name: 'productDetail',
   props: {
@@ -52,6 +94,15 @@ export default {
   methods: {
     showView () {
       this.showDetail = true
+      this.$nextTick((v) => {
+        if (!this.scroll) {
+          this.scroll = new BScroll(this.$refs.foodView, {
+            click: true
+          })
+        } else {
+          this.scroll.refresh()
+        }
+      })
     },
     closeBtn () {
       this.showDetail = false
@@ -62,7 +113,8 @@ export default {
     }
   },
   components: {
-    'app-cart-control': cartControl
+    'app-cart-control': cartControl,
+    'app-split': appSplit
   }
 }
 </script>
